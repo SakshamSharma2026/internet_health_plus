@@ -1,3 +1,9 @@
+## 1.0.3
+### Enhancements
+- Simplified example app with beginner-friendly UI
+- Added clearer import structure through `internet_health_plus.dart`
+- Improved README with clear instructions, badges, and explanations
+
 ## 1.0.2
 ### Enhancements
 - Simplified example app with beginner-friendly UI

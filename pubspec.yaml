@@ -1,6 +1,6 @@
 name: internet_health_plus
 description: "Flutter plugin for true internet reachability, latency monitoring, and network quality detection with fast, battery-optimised probing."
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/SakshamSharma2026/internet_health_plus.git
 
 environment:

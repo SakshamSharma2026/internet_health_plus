@@ -138,6 +138,10 @@ checker.onStatusChange.listen((status) {
   print('Latency: ${status.latencyMs}');
   print('Quality: ${status.quality}');
 });
+
+&
+
+checker.hasInternetAccess();
 ```
 
 ---
@@ -236,42 +240,6 @@ ProbeOptions(latencyThresholds: {'good': 5, 'moderate': 10});
       | quality               |
       +-----------------------+
 ```
-
----
-
-# 📄 CHANGELOG.md
-
-```
-## 1.0.0
-- Initial release
-- Internet reachability detection
-- Latency measurement
-- Network quality classification
-- Real-time status stream
-- Battery optimized probe scheduler
-- Riverpod integration example
-```
-
----
-
-# 📦 Pub.dev Metadata
-
-Add to `pubspec.yaml`:
-
-```yaml
-homepage: https://github.com/SakshamSharma2026/internet_health_plus
-repository: https://github.com/SakshamSharma2026/internet_health_plus
-issue_tracker: https://github.com/SakshamSharma2026/internet_health_plus/issues
-documentation: https://github.com/SakshamSharma2026/internet_health_plus#readme
-topics:
-  - internet
-  - connectivity
-  - network
-  - latency
-  - performance
-```
-
----
 
 # 📄 License
 
