@@ -191,14 +191,14 @@ class InternetHealthPlus {
       // Exponential backoff with jitter
       final jitter = Random().nextInt(100);
       await Future.delayed(
-        minDelay(delay + Duration(milliseconds: jitter), options.maxRetryDelay),
+        _minDelay(delay + Duration(milliseconds: jitter), options.maxRetryDelay),
       );
       attempt++;
       delay *= 2;
     }
   }
 
-  Duration minDelay(Duration d1, Duration max) => d1 <= max ? d1 : max;
+  Duration _minDelay(Duration d1, Duration max) => d1 <= max ? d1 : max;
 
   /// Single probe attempt (HTTP via Dio preferred; socket fallback optional)
   Future<_ProbeResult> _probeInternetWithLatency(ProbeOptions options) async {
@@ -312,7 +312,7 @@ class InternetHealthPlus {
   }
 
   /// Public: simple boolean check
-  Future<bool> checkInternet({ProbeOptions? options}) async {
+  Future<bool> hasInternetAccess({ProbeOptions? options}) async {
     final s = await checkInternetDetailed(options: options);
     return s.internetAvailable;
   }

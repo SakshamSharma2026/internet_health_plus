@@ -88,7 +88,6 @@ class _InternetHealthDemoPageState extends State<InternetHealthDemoPage> {
       case NetworkType.none:
         return 'Offline';
       case NetworkType.unknown:
-      default:
         return 'Unknown';
     }
   }
@@ -102,7 +101,6 @@ class _InternetHealthDemoPageState extends State<InternetHealthDemoPage> {
       case InternetQuality.slow:
         return Colors.red;
       case InternetQuality.unknown:
-      default:
         return Colors.grey;
     }
   }

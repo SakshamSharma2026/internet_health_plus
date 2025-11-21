@@ -1,3 +1,11 @@
+## 1.0.2
+### Enhancements
+- Simplified example app with beginner-friendly UI
+- Added separation of internal/private helpers using `_private` patterns
+- Added clearer import structure through `internet_health_plus.dart`
+- Switched GitHub image URLs to raw assets for pub.dev compatibility
+
+
 ## 1.0.1
 - Added simple & beginner-friendly usage example
 - Improved README with clear instructions, badges, and explanations

@@ -1,4 +1,4 @@
-library internet_health_plus;
+library;
 
 export 'src/internet_checker.dart';
 export 'src/model/internet_status.dart';
