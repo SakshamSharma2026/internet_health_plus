@@ -4,13 +4,12 @@ Advanced Internet Connectivity, Latency & Network Quality Detection for Flutter.
 
 <p align="center">
   <img src="https://img.shields.io/pub/v/internet_health_plus?color=blue&label=pub.dev&style=for-the-badge" />
-  <img src="https://img.shields.io/github/license/SakshamSharma2026/internet_health_plus?style=for-the-badge" />
   <img src="https://img.shields.io/badge/null_safety-enabled-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/platform-flutter-blue?style=for-the-badge" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/SakshamSharma2026/internet_health_plus/blob/main/assets/banner_image.png" width="480">
+  <img src="https://raw.githubusercontent.com/SakshamSharma2026/internet_health_plus/main/assets/banner_image.png" width="480">
 </p>
 
 ---
@@ -18,7 +17,7 @@ Advanced Internet Connectivity, Latency & Network Quality Detection for Flutter.
 # 📸 Example App Preview
 
 <p align="center">
-  <img src="https://github.com/SakshamSharma2026/internet_health_plus/blob/main/assets/example_app_ss.png" width="480">
+  <img src="https://raw.githubusercontent.com/SakshamSharma2026/internet_health_plus/main/assets/example_app_ss.png" width="480">
 </p>
 
 ---
