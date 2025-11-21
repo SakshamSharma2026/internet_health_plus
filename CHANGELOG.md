@@ -1,11 +1,8 @@
 ## 1.0.0
-- Initial release of internet_health_plus
-- Real internet reachability via HTTP HEAD/GET
-- Socket fallback support
-- Latency measurement & quality classification
+- Initial release
+- Internet reachability detection
+- Latency measurement
+- Network quality classification
 - Real-time status stream
-- Debounce + rate limiting
-- Automatic retries with backoff
-- Example Flutter app added
-- Riverpod-ready architecture
-- Full documentation and polished README
+- Battery optimized probe scheduler
+- Riverpod integration example
