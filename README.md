@@ -14,7 +14,7 @@ Advanced Internet Connectivity, Latency & Network Quality Detection for Flutter.
 # 📸 Example App Preview
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SakshamSharma2026/internet_health_plus/main/assets/banner_image.png" width="420">
+  <img src="https://github.com/SakshamSharma2026/internet_health_plus/blob/main/assets/banner_image.png" width="420">
 </p>
 
 ---
