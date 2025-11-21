@@ -1,6 +1,6 @@
 name: internet_health_plus
 description: "A powerful, modern Flutter plugin for real internet reachability, latency measurement, and dynamic network quality detection. Detect slow networks, sudden drops, and connectivity changes in real-time — with a battery-optimised and production-ready engine."
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/SakshamSharma2026/internet_health_plus.git
 
 environment:
