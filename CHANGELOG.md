@@ -1,3 +1,10 @@
+## 1.0.4
+- Updated to latest Dart SDK and Flutter SDK environment constraints
+- Added Web support (HTTP-only probing, web-safe logic)
+- Fixed several minor stability and edge-case bugs
+- Improved README with clear instructions, badges, and explanations
+
+
 ## 1.0.3
 ### Enhancements
 - Simplified example app with beginner-friendly UI

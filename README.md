@@ -20,7 +20,6 @@ Advanced Internet Connectivity, Latency & Network Quality Detection for Flutter.
   <img src="https://raw.githubusercontent.com/SakshamSharma2026/internet_health_plus/main/assets/example_app_ss.png" width="480">
 </p>
 
----
 
 # 📝 Description
 
@@ -34,69 +33,7 @@ It helps apps react to:
 - Captive portals
 - Poor connections disguised as Wi-Fi/Mobile
 
-All with **battery-optimized active probing**.
-
----
-
-# 📡 Issue with connectivity_plus?
-
-#### Most apps use connectivity_plus to check Internet status, but it has an important limitation:
-
-#### ❌ connectivity_plus only tells you:
-
-- Whether the device is on Wi-Fi, Mobile, Ethernet, or Offline
-
-- NOT whether the internet actually works
-
-- Why this is not enough:
-
-- A device can be connected to Wi-Fi but still have:
-
-- No internet access
-
-- Slow or unstable internet
-
-- Captive portals (airport/hotel login pages)
-
-- High latency causing slow performance
-
-- Partial connectivity
-
-In all these cases, connectivity_plus still reports wifi or mobile, even when the internet is unusable.
-
-
-# ❤️ Why Choose `internet_health_plus`?
-
-### ⭐ Real Internet Health
-It checks actual connectivity (HTTP + socket fallback), not just WiFi/mobile status.
-
-### ⭐ Detect Slow/Moderate/Good Networks
-Based on real latency measurements.
-
-### ⭐ Real-Time Stream Updates
-Receive events instantly via:
-```dart
-Stream<InternetStatus>
-```
-
-### ⭐ Battery Efficient
-- Debouncing
-- Rate limiting
-- Shared Dio instance
-- Retry with exponential backoff
-
-### ⭐ Works Everywhere
-- Android
-- iOS
-- Desktop
-- Flutter Web
-
-### ⭐ Riverpod Ready
-Built for reactive state management.
-
----
-
-# ✨ Features
+### ✨ Features
 
 - ✔ Real-time internet reachability
 - ✔ Latency measurement (ms)
@@ -108,13 +45,25 @@ Built for reactive state management.
 - ✔ Highly configurable
 - ✔ Production tested
 
----
+All with **battery-optimized active probing**.
+
+## Platform Support
+
+| Platform | Supported |
+|----------|-----------|
+| Android  | ✅ |
+| iOS      | ✅ |
+| macOS    | ✅ |
+| Web      | ✅ |
+| Linux    | ✅ |
+| Windows  | ✅ |
+
 
 # 🚀 Installation
 
 ```yaml
 dependencies:
-  internet_health_plus: ^1.0.0
+  internet_health_plus: ^1.0.4
 ```
 
 ---
@@ -155,65 +104,45 @@ print(result.quality);
 
 ---
 
-# 🐢 Handling Slow Internet Connections
 
-`internet_health_plus` doesn’t just tell you if you’re online — it also tells you when the connection is **slow**, so you can:
+## 🛠 Customization (ProbeOptions)
 
-- switch to **low-data mode**
-- load **thumbnails instead of full-res images**
-- **delay heavy syncs or uploads**
-- reduce **polling frequency**
-
-You get two useful signals:
 ```dart
-- status.quality → good | moderate | slow | unknown
-- status.isSlow → true when quality is slow
+final checker = InternetHealthPlus(
+  options: ProbeOptions(
+    timeout: Duration(seconds: 3),
+    periodicProbeInterval: Duration(seconds: 5),
+    latencyThresholds: {
+      'good': 80,
+      'moderate': 250,
+    },
+  ),
+);
 ```
+
+### Options include:
+
+| Option | Description |
+|--------|-------------|
+| `httpUrl` | Ping this URL |
+| `timeout` | Probe timeout |
+| `periodicProbeInterval` | Auto-check interval |
+| `latencyThresholds` | Define good/moderate/slow |
+| `useHttpHeadWhenHttp` | Use `HEAD` for faster check |
+| `socketHost/socketPort` | Fallback method |
+
 ---
 
-
-# 🧩 Riverpod Integration
+## 🐢 Detect Slow Internet
 
 ```dart
-final internetCheckerProvider = Provider<InternetHealthPlus>((ref) {
-  final checker = InternetHealthPlus();
-  ref.onDispose(() => checker.dispose());
-  return checker;
-});
-
-final internetStatusStreamProvider = StreamProvider<InternetStatus>((ref) {
-  final checker = ref.watch(internetCheckerProvider);
-
-  final controller = StreamController<InternetStatus>();
-  controller.add(checker.lastStatus);
-
-  final sub = checker.onStatusChange.listen(controller.add);
-
-  checker.checkInternetDetailed(); // initial probe
-
-  ref.onDispose(() {
-    sub.cancel();
-    controller.close();
-  });
-
-  return controller.stream;
+checker.onStatusChange.listen((status) {
+  if (status.isSlow) {
+    print("Warning: Slow internet detected");
+  }
 });
 ```
 
----
-
-# 🧪 Testing Slow Internet
-
-### ✔ Android Emulator → Edge / GPRS
-### ✔ iOS Simulator → Network Link Conditioner
-### ✔ Router throttling
-### ✔ Override thresholds:
-
-```dart
-ProbeOptions(latencyThresholds: {'good': 5, 'moderate': 10});
-```
-
----
 
 # 🧠 Architecture
 

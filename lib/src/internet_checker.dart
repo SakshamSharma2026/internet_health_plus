@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -191,7 +190,10 @@ class InternetHealthPlus {
       // Exponential backoff with jitter
       final jitter = Random().nextInt(100);
       await Future.delayed(
-        _minDelay(delay + Duration(milliseconds: jitter), options.maxRetryDelay),
+        _minDelay(
+          delay + Duration(milliseconds: jitter),
+          options.maxRetryDelay,
+        ),
       );
       attempt++;
       delay *= 2;
@@ -201,14 +203,14 @@ class InternetHealthPlus {
   Duration _minDelay(Duration d1, Duration max) => d1 <= max ? d1 : max;
 
   /// Single probe attempt (HTTP via Dio preferred; socket fallback optional)
+  /// Single probe attempt (HTTP via Dio only; socket fallback removed for web-safety)
   Future<_ProbeResult> _probeInternetWithLatency(ProbeOptions options) async {
-    // Guard: ensure valid httpUrl
     try {
       final uri = options.httpUrl;
       try {
-        final sw = Stopwatch()..start();
-        // reuse same Dio instance, but copy timeouts to options for this call
-        final r = await _dio.fetch(
+        final stopwatch = Stopwatch()..start();
+
+        final response = await _dio.fetch(
           RequestOptions(
             path: uri.toString(),
             method: options.useHttpHeadWhenHttp ? 'HEAD' : 'GET',
@@ -223,36 +225,20 @@ class InternetHealthPlus {
             followRedirects: false,
           ),
         );
-        sw.stop();
-        final statusCode = r.statusCode ?? 0;
+
+        stopwatch.stop();
+        final statusCode = response.statusCode ?? 0;
         final reachable = statusCode >= 200 && statusCode < 300;
-        final latency = sw.elapsedMilliseconds;
+        final latency = stopwatch.elapsedMilliseconds;
+
         if (reachable) {
           return _ProbeResult(reachable: true, latencyMs: latency);
         }
-        // else fallthrough to socket fallback below if allowed
       } catch (_) {
-        // HTTP probe failed — will try socket fallback if configured
-      }
-
-      if (options.useSocketFallback) {
-        try {
-          final sw = Stopwatch()..start();
-          final socket = await Socket.connect(
-            options.socketHost,
-            options.socketPort,
-            timeout: options.timeout,
-          );
-          sw.stop();
-          final latency = sw.elapsedMilliseconds;
-          socket.destroy();
-          return _ProbeResult(reachable: true, latencyMs: latency);
-        } catch (_) {
-          // socket failed
-        }
+        // HTTP failed => treat as unreachable below
       }
     } catch (_) {
-      // unexpected internal error — treat as unreachable
+      // unexpected error => unreachable
     }
 
     return const _ProbeResult(reachable: false, latencyMs: null);
